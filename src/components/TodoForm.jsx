@@ -27,6 +27,7 @@ function TodoForm({ onSaveClick, inputValue }) {
         onKeyDown={handleKeyDown}
         onChange={(e) => setName(e.target.value)}
         type="text"
+        placeholder="Add a new todo..."
         className="flex-1 h-[35px] px-4 border outline-none"
       />
       <button
