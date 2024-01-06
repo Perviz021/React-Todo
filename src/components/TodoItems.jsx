@@ -34,7 +34,7 @@ function TodoItems({ todos, onDelete, onEditTodo, onToggleComplete }) {
               onClick={() => onDelete(todo.id)}
               disabled={todo.completed}
               className={`h-8 px-2 rounded inline-flex justify-center items-center bg-red-500 text-white ${
-                todo.completed ? "opacity-50" : ""
+                todo.completed ? "opacity-40" : ""
               }`}
             >
               Delete
