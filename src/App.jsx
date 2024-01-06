@@ -7,7 +7,7 @@ function App() {
   let [inputValue, setInputValue] = useState("");
 
   // Add Todo
-  const addTodo = (name) => {
+  const addOrUpdateTodo = (name) => {
     if (inputValue !== "") {
       // Update existing todo
       setTodos((prevTodos) =>
@@ -39,14 +39,22 @@ function App() {
     );
   };
 
+  // Edit Todo
+  const editTodo = (id, name) => {
+    setInputValue({ id, name }); // Pass an object with id and name properties
+  };
+
   return (
     <div className="w-[400px] mx-auto p-3 my-10 border space-y-[10px] bg-gray-100 rounded">
       <h1 className="text-center font-bold text-[20px]">Todo App</h1>
-      <TodoForm onSaveClick={(name) => addTodo(name)} inputValue={inputValue} />
+      <TodoForm
+        onSaveClick={(name) => addOrUpdateTodo(name)}
+        inputValue={inputValue}
+      />
       <TodoItems
         todos={todos}
         onDelete={(id) => deleteTodo(id)}
-        onEditTodo={(id, name) => setInputValue(id, name)}
+        onEditTodo={(id, name) => editTodo(id, name)}
         onToggleComplete={(id) => toggleComplete(id)}
       />
     </div>

@@ -4,9 +4,12 @@ function TodoForm({ onSaveClick, inputValue }) {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    // Update the input field when the external inputValue changes
-    setName(inputValue);
+    setName(inputValue && inputValue.name ? inputValue.name : "");
   }, [inputValue]);
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
 
   const handleClick = () => {
     if (name.trim()) {
@@ -17,7 +20,10 @@ function TodoForm({ onSaveClick, inputValue }) {
 
   // When user presses 'Enter' on input
   const handleKeyDown = (e) => {
-    if (e.code === "Enter") handleClick();
+    if (e.code === "Enter") {
+      e.preventDefault(); // Prevent the default form submission
+      handleClick();
+    }
   };
 
   return (
@@ -25,14 +31,14 @@ function TodoForm({ onSaveClick, inputValue }) {
       <input
         value={name}
         onKeyDown={handleKeyDown}
-        onChange={(e) => setName(e.target.value)}
+        onChange={handleChange}
         type="text"
         placeholder="Add a new todo..."
         className="flex-1 h-[35px] px-4 border outline-none"
       />
       <button
-        disabled={!name.trim()}
-        onClick={() => handleClick()}
+        disabled={!name || (typeof name === "string" && !name.trim())}
+        onClick={handleClick}
         className="disabled:opacity-30 h-[35px] bg-blue-500 text-white rounded px-8 text-[23px] inline-flex justify-center items-center"
       >
         +
